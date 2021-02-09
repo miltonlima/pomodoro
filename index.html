@@ -1,0 +1,106 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Pomodoro5.1</title>
+  <script>
+  </script>
+  <style>
+    .content{
+      /*border: 1px solid #0015FF;*/
+    }
+    .display{
+      border: 1px solid #000000;
+      width: 15%;
+      margin: 0 auto;
+      margin-top: 100px;
+      text-align: center;
+      color: #FFFFFF;
+      /*height: 35px;*/
+      font-size: 22px;
+      background-color: #000000;
+      padding: 10px;
+    }
+    .toolbar{
+      border: 1px solid #000000;
+      width: 50%;
+      margin: 0 auto;
+      margin-top: 10px;
+    }
+    .progress{
+      border: 1px solid #FF0004;
+      width: 0%;
+      height: 30px;
+      background-color: #FF0004;
+      text-align: center;
+      padding-top: 10px;
+      
+    }
+    .btnstart{
+      width: 50%;
+      margin: 0 auto;
+      margin-top: 10px;
+      text-align: center;      
+    }
+    .btn-act{
+      font-size: 20px;
+    }
+  </style>
+  <script>
+    var si, h = 0, m = 0, s = 0, pc = 0;
+    function PomodoStart(){
+      //alert("teste");
+      if(document.getElementById('btn-pomo-start').innerHTML == "Começar"){
+        si = setInterval(PomodoroTime,1000);
+        document.getElementById('btn-pomo-start').innerHTML = "Reiniciar";
+      }
+      else{
+        document.getElementById('pomo-display').innerHTML = "00:00";
+        document.title = "00:00";
+        m = 0;
+        s = 0;
+        pc = 0;
+        clearInterval(si);
+        si = setInterval(PomodoroTime,1000);
+      }
+      
+    }
+    function PomodoroTime(){
+      //s = s + 1;
+      s++;
+      if(s < 10){s1 = "0"}else{s1 = ""}
+      if(m < 10){m1 = "0"}else{m1 = ""}
+      document.getElementById('pomo-display').innerHTML = m1+''+m+':'+s1+''+s;
+      document.title = m1+''+m+':'+s1+''+s;
+      document.getElementById('status-progress').style.width = pc+"%";
+      document.getElementById('status-progress').innerHTML = pc+"%";
+      //pc++;
+      if(s > 58){
+        m++;
+        s = 0;
+        pc = pc + 4;
+        document.getElementById('status-progress').style.width = pc+"%";
+        document.getElementById('status-progress').innerHTML = pc+"%";
+      }
+      if(m == 25){
+        document.getElementById('status-progress').style.width = pc+"%";
+        document.getElementById('status-progress').innerHTML = pc+"%";
+        clearInterval(si);
+      }
+      
+    }
+  </script>
+</head>
+<body>
+  <div class="content">
+    <div>25 minutos</div>
+    <div id="pomo-display" class="display">00:00</div>
+    <div class="toolbar">
+      <div id="status-progress" class="progress"></div>
+    </div>
+    <div class="btnstart">
+      <button id="btn-pomo-start" class="btn-act" onClick="PomodoStart()">Começar</button>
+    </div>
+  </div>
+</body>
+</html>
